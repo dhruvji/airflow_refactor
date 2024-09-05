@@ -34,7 +34,7 @@ from typing import TYPE_CHECKING
 
 from airflow.configuration import conf
 from airflow.exceptions import AirflowConfigException
-from airflow.utils.configuration import tmp_configuration_copy
+from airflow.utils.temp_config_copy import tmp_configuration_copy
 from airflow.utils.log.logging_mixin import LoggingMixin
 from airflow.utils.net import get_hostname
 from airflow.utils.platform import getuser
