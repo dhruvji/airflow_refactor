@@ -1,0 +1,1 @@
+Rename is_localized function to is_aware and update the references throughout the repository.

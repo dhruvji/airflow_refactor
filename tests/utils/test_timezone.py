@@ -34,8 +34,8 @@ UTC = timezone.utc
 
 class TestTimezone:
     def test_is_aware(self):
-        assert timezone.is_localized(datetime.datetime(2011, 9, 1, 13, 20, 30, tzinfo=EAT))
-        assert not timezone.is_localized(datetime.datetime(2011, 9, 1, 13, 20, 30))
+        assert timezone.is_aware(datetime.datetime(2011, 9, 1, 13, 20, 30, tzinfo=EAT))
+        assert not timezone.is_aware(datetime.datetime(2011, 9, 1, 13, 20, 30))
 
     def test_is_naive(self):
         assert not timezone.is_naive(datetime.datetime(2011, 9, 1, 13, 20, 30, tzinfo=EAT))
@@ -43,7 +43,7 @@ class TestTimezone:
 
     def test_utcnow(self):
         now = timezone.utcnow()
-        assert timezone.is_localized(now)
+        assert timezone.is_aware(now)
         assert now.replace(tzinfo=None) == now.astimezone(UTC).replace(tzinfo=None)
 
     def test_convert_to_utc(self):

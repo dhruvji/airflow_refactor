@@ -65,7 +65,7 @@ def _trigger_dag(
 
     execution_date = execution_date or timezone.utcnow()
 
-    if not timezone.is_localized(execution_date):
+    if not timezone.is_aware(execution_date):
         raise ValueError("The execution_date should be localized")
 
     if replace_microseconds:

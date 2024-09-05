@@ -38,7 +38,7 @@ _PENDULUM3 = version.parse(metadata.version("pendulum")).major == 3
 utc = pendulum.UTC
 
 
-def is_localized(value):
+def is_aware(value):
     """
     Determine if a given datetime.datetime is aware.
 
@@ -98,7 +98,7 @@ def convert_to_utc(value: dt.datetime | None) -> DateTime | None:
     if value is None:
         return value
 
-    if not is_localized(value):
+    if not is_aware(value):
         from airflow.settings import TIMEZONE
 
         value = pendulum.instance(value, TIMEZONE)
@@ -135,7 +135,7 @@ def make_aware(value: dt.datetime | None, timezone: dt.tzinfo | None = None) -> 
         return None
 
     # Check that we won't overwrite the timezone of an aware datetime.
-    if is_localized(value):
+    if is_aware(value):
         raise ValueError(f"make_aware expects a naive datetime, got {value}")
     # In case we move clock back we want to schedule the run at the time of the second
     # instance of the same clock time rather than the first one.

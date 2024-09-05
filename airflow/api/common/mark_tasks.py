@@ -124,7 +124,7 @@ def set_state(
     if not exactly_one(execution_date, run_id):
         raise ValueError("Exactly one of dag_run_id and execution_date must be set")
 
-    if execution_date and not timezone.is_localized(execution_date):
+    if execution_date and not timezone.is_aware(execution_date):
         raise ValueError(f"Received non-localized date {execution_date}")
 
     task_dags = {task[0].dag if isinstance(task, tuple) else task.dag for task in tasks}
@@ -305,7 +305,7 @@ def set_dag_run_state_to_success(
         return []
 
     if execution_date:
-        if not timezone.is_localized(execution_date):
+        if not timezone.is_aware(execution_date):
             raise ValueError(f"Received non-localized date {execution_date}")
         dag_run = dag.get_dagrun(execution_date=execution_date)
         if not dag_run:
@@ -358,7 +358,7 @@ def set_dag_run_state_to_failed(
         return []
 
     if execution_date:
-        if not timezone.is_localized(execution_date):
+        if not timezone.is_aware(execution_date):
             raise ValueError(f"Received non-localized date {execution_date}")
         dag_run = dag.get_dagrun(execution_date=execution_date)
         if not dag_run:
@@ -449,7 +449,7 @@ def __set_dag_run_state_to_running_or_queued(
         return res
 
     if execution_date:
-        if not timezone.is_localized(execution_date):
+        if not timezone.is_aware(execution_date):
             raise ValueError(f"Received non-localized date {execution_date}")
         dag_run = dag.get_dagrun(execution_date=execution_date)
         if not dag_run:
